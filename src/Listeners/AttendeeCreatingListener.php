@@ -43,7 +43,7 @@ class AttendeeCreatingListener
         $data = $event->data['data']['custom_fields'];
         $data = array_only($data, array_keys($this->fields));
 
-        $attendee->custom_fields = $data;
+        $attendee->custom_fields = json_encode($data);
         $attendee->save();
     }
 }

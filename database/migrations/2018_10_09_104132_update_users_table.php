@@ -14,7 +14,7 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->json('custom_fields')->nullable()->after('phone');
+            $table->string('custom_fields')->nullable()->after('phone');
         });
     }
 
