@@ -5,6 +5,7 @@ namespace Jano\Modules\CustomFields\Providers;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Jano\Modules\CustomFields\Facades\CustomFields;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,12 @@ class ModuleServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+
+        $this->app->bind(\Jano\Modules\CustomFields\Facades\CustomFields::class, function ($app) {
+            return new CustomFields(
+                $app->make(\Illuminate\Config\Repository::class)
+            );
+        });
 
         $loader = AliasLoader::getInstance();
         $loader->alias('CustomFields', \Jano\Modules\CustomFields\Facades\CustomFields::class);
